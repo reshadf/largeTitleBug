@@ -72,6 +72,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Large Title"
+        self.navigationItem.largeTitle = "Large Title 2"
 //        navigationItem.largeTitleDisplayMode = .always
         
         let swiftUIView = MainView()
@@ -102,6 +103,7 @@ class SubVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Sub Large Title"
+        self.navigationItem.largeTitle = "Sub Large Title 2"
 //        navigationItem.largeTitleDisplayMode = .always
         
         self.view.backgroundColor = .red
@@ -111,7 +113,12 @@ class SubVC: UIViewController {
 struct MainView: View {
     
     var body: some View {
-        Text("Hello, World!")
+        ScrollView {
+            Text("Hello, World!")
+            
+            Divider()
+            Spacer()
+        }
     }
 }
 
@@ -120,6 +127,14 @@ func createNavigationController(viewController: UIViewController) -> UINavigatio
     let navigationController = UINavigationController(rootViewController: viewController)
     navigationController.view.backgroundColor = .green
     navigationController.navigationBar.prefersLargeTitles = true
+    
+    let app = UINavigationBarAppearance()
+    app.backgroundColor = .blue
+    app.shadowColor = .clear
+    app.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    app.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    navigationController.navigationBar.scrollEdgeAppearance = app
+    navigationController.navigationBar.standardAppearance = app
     
     return navigationController
 }
